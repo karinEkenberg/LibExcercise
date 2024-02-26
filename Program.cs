@@ -1,4 +1,5 @@
 ﻿using static System.Console;
+using LibExcercise;
 
 namespace LibExcercise
 {
@@ -8,15 +9,19 @@ namespace LibExcercise
         {
             bool run = true;
 
+            Other other = new Other();
+            Book book = new Book();
+            Lender lender = new Lender();
+            Library library = new Library();
+            library.SavedLibraryToJson();
+
             while (run)
             {
-                Other other = new Other();
-                Book book = new Book();
-                Lender lender = new Lender();
-                Library library = new Library();
+             
 
                 Clear();
                 ForegroundColor = ConsoleColor.Magenta;
+                BackgroundColor = ConsoleColor.Yellow;
                 WriteLine("--------------------------------------");
                 WriteLine("[1] - Add books.");
                 WriteLine("[2] - Lend book/s.");
@@ -31,12 +36,15 @@ namespace LibExcercise
                 switch (input)
                 {
                     case 1:
+                        library.AddBookFromUserInput();
+                        
                         break;
                     case 2:
                         break;
                     case 3:
                         break;
                     case 4:
+                        library.PrintBooks();
                         break;
                     case 5:
                         break;
