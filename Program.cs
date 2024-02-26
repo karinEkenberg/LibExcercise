@@ -37,7 +37,6 @@ namespace LibExcercise
                 {
                     case 1:
                         library.AddBookFromUserInput();
-                        
                         break;
                     case 2:
                         break;

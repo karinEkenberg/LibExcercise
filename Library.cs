@@ -20,7 +20,12 @@ namespace LibExcercise
         {
             books = new List<Book>();
             LoadLibraryFromJson();
-            AddBooks();
+            if (books.Count == 0)
+            {
+                AddBooks();
+                AddBook("Example author", "Example title", 2022, "Example description");
+            }
+            
         }
 
         public void AddBooks()
@@ -42,9 +47,13 @@ namespace LibExcercise
 
         public void AddBook(string author, string title, int year, string description)
         {
-
+            if (books.Any(book => book.Author == author && book.Title == title))
+            {
+                WriteLine("The book already exists in the library.");
+            }
             Book book = new Book { Author = author, Title = title, Year = year, Description = description };
             books.Add(book);
+            SavedLibraryToJson();
             
         }
 
