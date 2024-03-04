@@ -11,14 +11,14 @@ namespace LibExcercise
 
             Other other = new Other();
             Book book = new Book();
-            Lender lender = new Lender();
             Library library = new Library();
-            library.SavedLibraryToJson();
+			Lender lender = new Lender(library);
+            var borrowers = new List<Borrower>();
+			library.SavedLibraryToJson();
+			library.LoadBooksFromJson("library.json");
 
-            while (run)
+			while (run)
             {
-             
-
                 Clear();
                 ForegroundColor = ConsoleColor.Magenta;
                 BackgroundColor = ConsoleColor.Yellow;
@@ -39,6 +39,7 @@ namespace LibExcercise
                         library.AddBookFromUserInput();
                         break;
                     case 2:
+                        lender.LendingBooks(borrowers);
                         break;
                     case 3:
                         break;
@@ -46,9 +47,10 @@ namespace LibExcercise
                         library.PrintBooks();
                         break;
                     case 5:
+                        lender.PrintLenders();
                         break;
                     case 6:
-                        Other.Text("Shutting down...");
+                        Other.Text("Shutting down... Goodbye!");
                         run = false;
                         return;
                     default:

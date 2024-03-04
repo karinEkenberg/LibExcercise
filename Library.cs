@@ -16,6 +16,7 @@ namespace LibExcercise
 
         public List<Book> books;
 
+
         public Library() 
         {
             books = new List<Book>();
@@ -89,6 +90,12 @@ namespace LibExcercise
             }
 
             ReadLine();
+        }
+
+        public void LoadBooksFromJson (string jsonFilePath)
+        {
+            string json = System.IO.File.ReadAllText(jsonFilePath);
+            books = JsonConvert.DeserializeObject<List<Book>>(json);
         }
 
         public void SavedLibraryToJson()
