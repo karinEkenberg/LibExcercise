@@ -35,7 +35,7 @@ namespace LibExcercise
 				WriteLine("Enter your social security number:");
 				string socNr = ReadLine();
 
-				if (!string.IsNullOrWhiteSpace(fName) && !string.IsNullOrWhiteSpace(lName) && !string.IsNullOrWhiteSpace(socNr)
+				if (!string.IsNullOrWhiteSpace(fName) && !string.IsNullOrWhiteSpace(lName) && !string.IsNullOrWhiteSpace(socNr))
 				{
 					Borrower newBorrower = new Borrower
 					{
@@ -60,6 +60,37 @@ namespace LibExcercise
 			ReadLine();
         }
 
+		public void ReturnBooks()
+		{
+			WriteLine("Enter title of the book you want to return:");
+			string bookName = ReadLine();
+			WriteLine("Enter your first name:");
+			string fName = ReadLine();
+			WriteLine("Enter your last name:");
+			string lName = ReadLine();
+			WriteLine("Enter your social secuirty number:");
+			string socNr = ReadLine();
+
+			Borrower borrowerToRemove = Lenders.FirstOrDefault(b =>
+				b.FirstName.Equals(fName, StringComparison.OrdinalIgnoreCase) &&
+				b.LastName.Equals(lName, StringComparison.OrdinalIgnoreCase) &&
+				b.SocSecNr.Equals(socNr, StringComparison.OrdinalIgnoreCase));
+
+			if (borrowerToRemove != null)
+			{
+				Lenders.Remove(borrowerToRemove);
+				SavedLendersToJson(Lenders);
+
+				UpdateBookStatus(bookName, "Available");
+				WriteLine($"Book {bookName} has been returned by {fName} {lName}");
+			}
+			else
+			{
+				WriteLine("No borrower found with the provided information.");
+			}
+			ReadLine();
+		}
+
 		public void SavedLendersToJson(List<Borrower> borrowers)
 		{
 			string filePath = "lenders.json";
@@ -69,7 +100,10 @@ namespace LibExcercise
 
 		public bool CheckBookAvailability (string title)
 		{
-			return library.books.Any(book => book.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
+			return library.books.Any(book => 
+			book.Title.Equals(title, StringComparison.OrdinalIgnoreCase) &&
+			(book.Status.Equals("Available", StringComparison.OrdinalIgnoreCase) ||
+			book.Status.Equals("Unavailable", StringComparison.OrdinalIgnoreCase)));
 		}
 
 		public void PrintLenders()
@@ -111,6 +145,8 @@ namespace LibExcercise
 				library.SavedLibraryToJson();
 			}
 		}
+
+
 
 	}
 }

@@ -26,7 +26,7 @@ namespace LibExcercise
                 WriteLine("[1] - Add books.");
                 WriteLine("[2] - Lend book/s.");
                 WriteLine("[3] - Return book/s.");
-                WriteLine("[4] - Show available books.");
+                WriteLine("[4] - Show books.");
                 WriteLine("[5] - Show lenders and what they lent.");
                 WriteLine("[6] - Exit program.");
                 WriteLine("--------------------------------------");
@@ -42,6 +42,7 @@ namespace LibExcercise
                         lender.LendingBooks(borrowers);
                         break;
                     case 3:
+                        lender.ReturnBooks();
                         break;
                     case 4:
                         library.PrintBooks();
